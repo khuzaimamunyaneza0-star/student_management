@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register Student</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; }
+        .card { max-width: 420px; margin: 30px auto; background: white; padding: 24px; border-radius: 8px; }
+        label { display: block; margin-top: 12px; font-weight: bold; }
+        input { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+        button { margin-top: 18px; width: 100%; padding: 10px; background: #2563eb; color: white; border: 0; border-radius: 4px; }
+        .success { background: #d1fae5; color: #065f46; padding: 10px; border-radius: 4px; }
+        .error { color: #b91c1c; font-size: 14px; }
+        a { display: block; text-align: center; margin-top: 14px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>Student Registration</h2>
+
+    <p class="success" th:if="${success}" th:text="${success}"></p>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <form th:action="@{/student/register}" th:object="${student}" method="post">
+
+        <label>First Name</label>
+        <input type="text" th:field="*{firstName}" required>
+        <span class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+
+        <label>Last Name</label>
+        <input type="text" th:field="*{lastName}" required>
+        <span class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+
+        <label>Email</label>
+        <input type="email" th:field="*{email}" required>
+        <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+        <label>Age</label>
+        <input type="number" th:field="*{age}" min="1" required>
+        <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <a th:href="@{/student/all}">View all students</a>
+</div>
+</body>
+</html>
